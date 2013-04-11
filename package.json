@@ -7,7 +7,8 @@
     "request": "~2.16.6",
     "restify": "~2.4.0",
     "underscore": "~1.4.4",
-    "date-utils": "~1.2.12"
+    "date-utils": "~1.2.12",
+    "mustache": "~0.7.2"
   },
   "devDependencies": {},
   "scripts": {
