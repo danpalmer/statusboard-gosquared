@@ -2,6 +2,7 @@ var restify = require('restify');
 var request = require('request');
 var _ = require('underscore');
 var fs = require('fs');
+var path = require('path');
 var mustache = require('mustache');
 require('date-utils');
 var server = restify.createServer();
@@ -101,7 +102,7 @@ server.get("/pages/:token/:site", handlePages);
 server.get("/timeline/:token/:site", handleTimeline);
 server.get("/timeline/:token/:site/:colour", handleTimeline);
 
-fs.readFile("./table.html.ms", "utf8", function (err, file) {
+fs.readFile(path.resolve(__dirname, "table.html.ms"), "utf8", function (err, file) {
   templates['pages'] = file;
 });
 
