@@ -46,6 +46,6 @@ function formatDate(date) {
 }
 
 server.get("/:token/:site", handle);
-server.listen(8000, function() {
+server.listen(8000, "127.0.0.1", function() {
   console.log('%s listening at %s', server.name, server.url);
 });
