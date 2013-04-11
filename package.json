@@ -1,0 +1,27 @@
+{
+  "name": "status-board-gosquared",
+  "version": "0.0.1",
+  "description": "Provide a proxy for JSON data from the GoSquared API to Panic's StatusBoard app for iPad.",
+  "main": "api.js",
+  "dependencies": {
+    "request": "~2.16.6",
+    "restify": "~2.4.0",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/danpalmer/statusboard-gosquared"
+  },
+  "keywords": [
+    "status",
+    "board",
+    "gosquared",
+    "panic"
+  ],
+  "author": "Dan Palmer <dan.palmer@me.com>",
+  "license": "BSD 2 Clause"
+}
