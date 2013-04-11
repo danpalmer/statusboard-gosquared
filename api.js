@@ -45,7 +45,13 @@ function formatDate(date) {
   return "" + date.getUTCDate();
 }
 
-server.get("/:token/:site", handle);
+function root(req, res) {
+  res.header('Location', 'http://danpalmer.me/');
+  res.send(302);
+}
+
+server.get("/", root);
+server.get("/gs/:token/:site", handle);
 server.listen(8000, "127.0.0.1", function() {
   console.log('%s listening at %s', server.name, server.url);
 });
