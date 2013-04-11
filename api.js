@@ -53,8 +53,8 @@ function getSiteName(sites, site) {
     }
   }
   for (var j = 0; j < sites['shared'].length; j++) {
-    if (sites['owned'][j].acct == site) {
-      return sites['owned'][j].name;
+    if (sites['shared'][j].acct == site) {
+      return sites['shared'][j].name;
     }
   }
   return "";
