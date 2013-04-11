@@ -16,7 +16,7 @@ function handle(req, res) {
           "datasequences": [
             {
               "title": getSiteName(body['listSites'], req.params.site),
-              "color": "blue",
+              "color": (req.params.colour) ? req.params.colour : "blue",
               "datapoints": getDataFromResult(body)
             }
           ]
@@ -67,6 +67,7 @@ function root(req, res) {
 
 server.get("/", root);
 server.get("/gs/:token/:site", handle);
+server.get("/gs/:token/:site/:colour", handle);
 server.listen(8000, "127.0.0.1", function() {
   console.log('%s listening at %s', server.name, server.url);
 });
