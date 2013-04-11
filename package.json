@@ -6,7 +6,8 @@
   "dependencies": {
     "request": "~2.16.6",
     "restify": "~2.4.0",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "date-utils": "~1.2.12"
   },
   "devDependencies": {},
   "scripts": {

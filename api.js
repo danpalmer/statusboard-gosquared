@@ -1,6 +1,7 @@
 var restify = require('restify');
 var request = require('request');
 var _ = require('underscore');
+require('date-utils');
 var server = restify.createServer();
 
 function handle(req, res) {
@@ -8,14 +9,15 @@ function handle(req, res) {
     if (err) {
       res.send({"error":err});
     } else {
+      var body = JSON.parse(response.body);
       res.send({
         "graph": {
           "title": "Visitors",
           "datasequences": [
             {
-              "title": "Dan Palmer",
+              "title": getSiteName(body['listSites'], req.params.site),
               "color": "blue",
-              "datapoints": getDataFromResult(JSON.parse(response.body))
+              "datapoints": getDataFromResult(body)
             }
           ]
         }
@@ -25,24 +27,37 @@ function handle(req, res) {
 }
 
 function getURLForParams(params) {
-  return "http://api.gosquared.com/v2/timeSeries?" +
-         "site_token=" + params.site +
+  var to = new Date();
+  var from = (new Date()).addHours(-12);
+  return "http://api.gosquared.com/v2/timeSeries,listSites?" +
+         "interval=30min" +
+         "&site_token=" + params.site +
          "&api_key=" + params.token +
-         "&from=2013-04-09+23:00" +
-         "&to=2013-04-10+23:00";
+         "&from=" + from.toFormat("YYYY-MM-DD+HH24:MI") +
+         "&to=" + to.toFormat("YYYY-MM-DD+HH24:MI");
 }
 
 function getDataFromResult(res) {
-  return _.map(res['visitors.total'], function(obj) {
+  return _.map(res['timeSeries']['visitors.total'], function(obj) {
     return {
       "value": obj.value,
-      "title": formatDate(new Date(1000 * obj.timestamp))
+      "title": (new Date(1000 * obj.timestamp)).toFormat("HH24:MI")
     };
   });
 }
 
-function formatDate(date) {
-  return "" + date.getUTCDate();
+function getSiteName(sites, site) {
+  for (var i = 0; i < sites['owned'].length; i++) {
+    if (sites['owned'][i].acct == site) {
+      return sites['owned'][i].name;
+    }
+  }
+  for (var j = 0; j < sites['shared'].length; j++) {
+    if (sites['owned'][j].acct == site) {
+      return sites['owned'][j].name;
+    }
+  }
+  return "";
 }
 
 function root(req, res) {
