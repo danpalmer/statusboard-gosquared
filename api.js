@@ -105,6 +105,6 @@ fs.readFile("./table.html.ms", "utf8", function (err, file) {
   templates['pages'] = file;
 });
 
-server.listen(8000,  function() {
+server.listen(8000, "127.0.0.1", function() {
   console.log('%s listening at %s', server.name, server.url);
 });
